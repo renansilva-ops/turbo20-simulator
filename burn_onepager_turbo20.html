@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turbo 20 — Burn Extra · One Pager</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+*,::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f0f;--surface:#161616;--surface2:#1e1e1e;--surface3:#252525;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#e2e2e2;--text2:#999;--text3:#555;
+  --red:#FF4B4B;--red-bg:rgba(255,75,75,0.10);
+  --amber:#f5a623;--amber-bg:rgba(245,166,35,0.11);
+  --green:#4ade80;--green-bg:rgba(74,222,128,0.09);
+  --blue:#4a9eff;--blue-bg:rgba(74,158,255,0.10);
+  --purple:#a78bfa;--purple-bg:rgba(167,139,250,0.10);
+  --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;
+}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);padding:36px 28px;max-width:1080px;margin:0 auto;line-height:1.5}
+
+/* ── HEADER ── */
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border2)}
+.header-left h1{font-size:20px;font-weight:600;letter-spacing:-.02em;margin-bottom:4px}
+.header-left p{font-size:13px;color:var(--text2)}
+.header-right{text-align:right;font-size:11px;color:var(--text3);font-family:var(--mono)}
+.badge{display:inline-block;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;background:var(--red-bg);color:var(--red);border:1px solid rgba(255,75,75,0.25);margin-right:6px}
+.badge-amber{background:var(--amber-bg);color:var(--amber);border-color:rgba(245,166,35,0.25)}
+
+/* ── SECTION ── */
+.section{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin:28px 0 12px;display:flex;align-items:center;gap:8px}
+.section::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── KPI ROW ── */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:4px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;position:relative;overflow:hidden}
+.kpi.highlight{border-color:rgba(255,75,75,0.3);background:rgba(255,75,75,0.04)}
+.kpi-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.kpi-val{font-size:24px;font-weight:600;font-family:var(--mono);line-height:1;color:var(--red)}
+.kpi-val.amber{color:var(--amber)}
+.kpi-val.white{color:var(--text)}
+.kpi-sub{font-size:11px;color:var(--text3);margin-top:5px;font-family:var(--mono)}
+
+/* ── PROJECAO ── */
+.proj-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.proj{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;text-align:center}
+.proj-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.proj-val{font-size:18px;font-weight:600;font-family:var(--mono);color:var(--amber)}
+.proj-sub{font-size:10px;color:var(--text3);margin-top:3px}
+
+/* ── TAXA TABLE ── */
+.rates-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:4px}
+.rate-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center}
+.rate-range{font-size:10px;color:var(--text2);margin-bottom:4px;font-weight:500}
+.rate-from{font-size:11px;font-family:var(--mono);color:var(--text3);margin-bottom:2px}
+.rate-to{font-size:16px;font-weight:600;font-family:var(--mono);color:var(--green)}
+.rate-increase{font-size:10px;color:var(--green);background:var(--green-bg);border-radius:3px;padding:1px 6px;margin-top:4px;display:inline-block}
+
+/* ── FAIXAS TABLE ── */
+.faixas-table{width:100%;border-collapse:collapse;font-size:12px}
+.faixas-table th{padding:7px 12px;text-align:right;font-size:10px;font-weight:600;color:var(--text3);background:var(--surface2);border-bottom:1px solid var(--border2);letter-spacing:.04em}
+.faixas-table th:first-child{text-align:left}
+.faixas-table td{padding:8px 12px;text-align:right;border-top:1px solid var(--border);font-family:var(--mono);font-size:12px}
+.faixas-table td:first-child{text-align:left;font-family:var(--sans);font-weight:500}
+.faixas-table tr:hover td{background:rgba(255,255,255,.018)}
+.bar-wrap{height:5px;background:var(--border);border-radius:3px;overflow:hidden;width:80px;display:inline-block;vertical-align:middle;margin-right:6px}
+.bar-fill{height:100%;border-radius:3px;background:var(--red)}
+
+/* ── DOIS COLS ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.card-title{font-size:11px;font-weight:600;color:var(--text2);padding:12px 16px;border-bottom:1px solid var(--border);letter-spacing:.04em;text-transform:uppercase}
+.store-row{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;border-top:1px solid var(--border);font-size:12px}
+.store-row:first-of-type{border-top:none}
+.store-name{color:var(--text);font-weight:400;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:10px}
+.store-type-tag{font-size:9px;padding:1px 6px;border-radius:3px;background:var(--surface3);color:var(--text3);margin-left:4px;flex-shrink:0}
+.store-burn{font-family:var(--mono);font-weight:600;color:var(--red);font-size:13px;white-space:nowrap}
+.store-sub{font-size:10px;color:var(--text3);font-family:var(--mono);text-align:right}
+
+/* ── INSIGHT ── */
+.insight-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:4px}
+.insight{border-left:3px solid var(--amber);background:var(--amber-bg);border-radius:0 7px 7px 0;padding:10px 14px;font-size:12px;color:var(--text);line-height:1.65}
+.insight.red{border-color:var(--red);background:var(--red-bg)}
+.insight.blue{border-color:var(--blue);background:var(--blue-bg)}
+.insight strong{font-weight:600}
+
+/* ── TYPE BAR ── */
+.type-bar-row{display:flex;align-items:center;gap:10px;padding:7px 16px;border-top:1px solid var(--border);font-size:12px}
+.type-bar-row:first-of-type{border-top:none}
+.type-name{width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text2);flex-shrink:0;font-size:11px}
+.type-bar-bg{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.type-bar-fill{height:100%;border-radius:4px;background:var(--red)}
+.type-val{font-family:var(--mono);font-size:12px;color:var(--red);width:90px;text-align:right;flex-shrink:0}
+.type-pct{font-family:var(--mono);font-size:10px;color:var(--text3);width:36px;text-align:right;flex-shrink:0}
+
+/* ── FOOTER ── */
+.footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--text3);display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>🔥 Turbo 20 — Projeção de Burn Extra · Long KM Incentive</h1>
+    <p>
+      <span class="badge">Análise</span>
+      <span class="badge badge-amber">Simulação</span>
+      Período base: <strong>30 Mar – 5 Abr 2026</strong> · Câmbio referência R$ 5,50
+    </p>
+  </div>
+  <div class="header-right">
+    Gerado em 22/04/2026<br>
+    Base: 19.363 pedidos · 7 dias
+  </div>
+</div>
+
+<!-- TAXAS PROPOSTAS -->
+<div class="section">Taxas propostas por faixa de km</div>
+<div class="rates-grid">
+  <div class="rate-card">
+    <div class="rate-range">4 – 5 km</div>
+    <div class="rate-from">R$ 2,00 → </div>
+    <div class="rate-to">R$ 2,25/km</div>
+    <div class="rate-increase">+R$ 0,25</div>
+  </div>
+  <div class="rate-card">
+    <div class="rate-range">5 – 6 km</div>
+    <div class="rate-from">R$ 2,00 → </div>
+    <div class="rate-to">R$ 2,35/km</div>
+    <div class="rate-increase">+R$ 0,35</div>
+  </div>
+  <div class="rate-card">
+    <div class="rate-range">6 – 7 km</div>
+    <div class="rate-from">R$ 2,00 → </div>
+    <div class="rate-to">R$ 2,50/km</div>
+    <div class="rate-increase">+R$ 0,50</div>
+  </div>
+  <div class="rate-card">
+    <div class="rate-range">7 – 8 km</div>
+    <div class="rate-from">R$ 2,00 → </div>
+    <div class="rate-to">R$ 3,00/km</div>
+    <div class="rate-increase">+R$ 1,00</div>
+  </div>
+  <div class="rate-card">
+    <div class="rate-range">8 – 9 km</div>
+    <div class="rate-from">R$ 2,00 → </div>
+    <div class="rate-to">R$ 3,50/km</div>
+    <div class="rate-increase">+R$ 1,50</div>
+  </div>
+  <div class="rate-card">
+    <div class="rate-range">acima de 9 km</div>
+    <div class="rate-from">R$ 2,00 → </div>
+    <div class="rate-to">R$ 4,00/km</div>
+    <div class="rate-increase">+R$ 2,00</div>
+  </div>
+</div>
+
+<!-- KPIs -->
+<div class="section">Resumo do impacto</div>
+<div class="kpi-row">
+  <div class="kpi highlight">
+    <div class="kpi-label">Burn Extra Total (7 dias)</div>
+    <div class="kpi-val">R$ 17.116</div>
+    <div class="kpi-sub">$ 3.112 USD</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Orders Impactados</div>
+    <div class="kpi-val amber">10.668</div>
+    <div class="kpi-sub">55,1% do total de pedidos</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Burn / Pedido Impactado</div>
+    <div class="kpi-val white">R$ 1,60</div>
+    <div class="kpi-sub">$ 0,29 USD</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Burn Diário Médio</div>
+    <div class="kpi-val white">R$ 2.445</div>
+    <div class="kpi-sub">base: 7 dias de pedidos</div>
+  </div>
+</div>
+
+<!-- PROJEÇÃO -->
+<div class="section">Projeção de custo</div>
+<div class="proj-row">
+  <div class="proj">
+    <div class="proj-label">Mensal (×30)</div>
+    <div class="proj-val">R$ 73.357</div>
+    <div class="proj-sub">$ 13.338 USD</div>
+  </div>
+  <div class="proj">
+    <div class="proj-label">Trimestral (×90)</div>
+    <div class="proj-val">R$ 220.071</div>
+    <div class="proj-sub">$ 40.013 USD</div>
+  </div>
+  <div class="proj">
+    <div class="proj-label">Anual (×365)</div>
+    <div class="proj-val">R$ 892.473</div>
+    <div class="proj-sub">$ 162.268 USD</div>
+  </div>
+</div>
+
+<!-- BURN POR FAIXA -->
+<div class="section">Burn extra por faixa de km</div>
+<table class="faixas-table">
+  <thead>
+    <tr>
+      <th style="text-align:left">Faixa</th>
+      <th>Taxa Nova</th>
+      <th>Orders</th>
+      <th>Impactados</th>
+      <th>% Imp.</th>
+      <th>Burn R$</th>
+      <th style="text-align:left">% do Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>5 – 6 km</td>
+      <td>R$ 2,35/km</td>
+      <td>5.110</td>
+      <td>3.816</td>
+      <td>74,7%</td>
+      <td style="color:var(--red)">R$ 6.954</td>
+      <td><span class="bar-wrap"><span class="bar-fill" style="width:40.6%"></span></span>40,6%</td>
+    </tr>
+    <tr>
+      <td>4 – 5 km</td>
+      <td>R$ 2,25/km</td>
+      <td>12.917</td>
+      <td>5.561</td>
+      <td>43,1%</td>
+      <td style="color:var(--red)">R$ 6.076</td>
+      <td><span class="bar-wrap"><span class="bar-fill" style="width:35.5%"></span></span>35,5%</td>
+    </tr>
+    <tr>
+      <td>6 – 7 km</td>
+      <td>R$ 2,50/km</td>
+      <td>1.169</td>
+      <td>1.124</td>
+      <td>96,2%</td>
+      <td style="color:var(--red)">R$ 2.939</td>
+      <td><span class="bar-wrap"><span class="bar-fill" style="width:17.2%"></span></span>17,2%</td>
+    </tr>
+    <tr>
+      <td>7 – 8 km</td>
+      <td>R$ 3,00/km</td>
+      <td>141</td>
+      <td>141</td>
+      <td>100%</td>
+      <td style="color:var(--red)">R$ 818</td>
+      <td><span class="bar-wrap"><span class="bar-fill" style="width:4.8%"></span></span>4,8%</td>
+    </tr>
+    <tr>
+      <td>8 – 9 km</td>
+      <td>R$ 3,50/km</td>
+      <td>25</td>
+      <td>25</td>
+      <td>100%</td>
+      <td style="color:var(--red)">R$ 314</td>
+      <td><span class="bar-wrap"><span class="bar-fill" style="width:1.8%"></span></span>1,8%</td>
+    </tr>
+    <tr>
+      <td>acima de 9 km</td>
+      <td>R$ 4,00/km</td>
+      <td>1</td>
+      <td>1</td>
+      <td>100%</td>
+      <td style="color:var(--red)">R$ 15</td>
+      <td><span class="bar-wrap"><span class="bar-fill" style="width:0.1%"></span></span>0,1%</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- STORE TYPE + TOP LOJAS -->
+<div class="section">Burn por store type e top lojas</div>
+<div class="two-col">
+
+  <!-- STORE TYPE -->
+  <div class="card">
+    <div class="card-title">Burn por Store Type</div>
+    <div class="type-bar-row">
+      <div class="type-name">turbo</div>
+      <div class="type-bar-bg"><div class="type-bar-fill" style="width:100%"></div></div>
+      <div class="type-val">R$ 8.336</div>
+      <div class="type-pct">48,7%</div>
+    </div>
+    <div class="type-bar-row">
+      <div class="type-name">turbo_veinticuatro_nc</div>
+      <div class="type-bar-bg"><div class="type-bar-fill" style="width:56.6%"></div></div>
+      <div class="type-val">R$ 4.717</div>
+      <div class="type-pct">27,6%</div>
+    </div>
+    <div class="type-bar-row">
+      <div class="type-name">turbo_ze_br</div>
+      <div class="type-bar-bg"><div class="type-bar-fill" style="width:21.9%"></div></div>
+      <div class="type-val">R$ 1.829</div>
+      <div class="type-pct">10,7%</div>
+    </div>
+    <div class="type-bar-row">
+      <div class="type-name">turbo_market_nc</div>
+      <div class="type-bar-bg"><div class="type-bar-fill" style="width:8.6%"></div></div>
+      <div class="type-val">R$ 715</div>
+      <div class="type-pct">4,2%</div>
+    </div>
+    <div class="type-bar-row">
+      <div class="type-name">doce_aquarella_super_nc</div>
+      <div class="type-bar-bg"><div class="type-bar-fill" style="width:6.4%"></div></div>
+      <div class="type-val">R$ 532</div>
+      <div class="type-pct">3,1%</div>
+    </div>
+    <div class="type-bar-row">
+      <div class="type-name">turbo_condor_br</div>
+      <div class="type-bar-bg"><div class="type-bar-fill" style="width:3.4%"></div></div>
+      <div class="type-val">R$ 282</div>
+      <div class="type-pct">1,6%</div>
+    </div>
+    <div class="type-bar-row">
+      <div class="type-name">demais (28 tipos)</div>
+      <div class="type-bar-bg"><div class="type-bar-fill" style="width:4.8%" style="opacity:.5"></div></div>
+      <div class="type-val" style="color:var(--text3)">R$ 706</div>
+      <div class="type-pct">4,1%</div>
+    </div>
+  </div>
+
+  <!-- TOP LOJAS -->
+  <div class="card">
+    <div class="card-title">Top 15 Lojas por Burn Extra</div>
+    <div class="store-row">
+      <span class="store-name">Turbo Nova Recreio<span class="store-type-tag">turbo · Rio</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 1.100</div><div class="store-sub">368 imp · R$ 2,99/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Turbo Alphaville<span class="store-type-tag">24h · SP</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 994</div><div class="store-sub">352 imp · R$ 2,82/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Turbo Lapa<span class="store-type-tag">24h · SP</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 706</div><div class="store-sub">312 imp · R$ 2,26/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Turbo Vila Olimpia<span class="store-type-tag">turbo · SP</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 585</div><div class="store-sub">419 imp · R$ 1,40/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Turbo Santana<span class="store-type-tag">24h · SP</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 510</div><div class="store-sub">302 imp · R$ 1,69/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Tienda Moema<span class="store-type-tag">turbo · SP</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 436</div><div class="store-sub">378 imp · R$ 1,15/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Brookliin II cpg<span class="store-type-tag">turbo · SP</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 434</div><div class="store-sub">303 imp · R$ 1,43/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Turbo Vila Izabel<span class="store-type-tag">turbo · Curitiba</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 433</div><div class="store-sub">235 imp · R$ 1,84/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Turbo Santo Amaro<span class="store-type-tag">24h · SP</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 417</div><div class="store-sub">224 imp · R$ 1,86/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Turbo PA centro<span class="store-type-tag">turbo · Porto Alegre</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 385</div><div class="store-sub">290 imp · R$ 1,33/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Turbo Barra da Tijuca 2<span class="store-type-tag">turbo · Rio</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 384</div><div class="store-sub">122 imp · R$ 3,15/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Turbo Morumbi<span class="store-type-tag">24h · SP</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 375</div><div class="store-sub">196 imp · R$ 1,91/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Turbo Alto do XV<span class="store-type-tag">turbo · Curitiba</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 352</div><div class="store-sub">184 imp · R$ 1,91/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Turbo Carrão<span class="store-type-tag">24h · SP</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 350</div><div class="store-sub">227 imp · R$ 1,54/ped</div></div>
+    </div>
+    <div class="store-row">
+      <span class="store-name">Turbo Retail Cambui<span class="store-type-tag">turbo · Campinas</span></span>
+      <div style="text-align:right"><div class="store-burn">R$ 334</div><div class="store-sub">248 imp · R$ 1,35/ped</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- INSIGHTS -->
+<div class="section">Destaques</div>
+<div class="insight-row">
+  <div class="insight red">
+    <strong>Faixas 4–6 km respondem por 76% do burn.</strong> A maioria dos pedidos longos fica entre 4 e 6 km — as faixas de menor incremento concentram o maior volume de custo.
+  </div>
+  <div class="insight">
+    <strong>turbo + turbo_veinticuatro_nc = 76% do burn.</strong> Dois store types concentram praticamente todo o impacto. O foco de monitoramento deve ser nestes dois segmentos.
+  </div>
+  <div class="insight blue">
+    <strong>Turbo Nova Recreio e Turbo Alphaville lideram.</strong> As duas lojas com maior burn absoluto. Alphaville se destaca pelo maior burn/pedido (R$ 2,82) entre as top 5.
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span>Turbo 20 — Long KM Incentive · Simulação com taxa base R$ 2,00/km · min earning R$ 8 (BH, Rio, POA, Curitiba)</span>
+  <span>Base: 30 Mar – 5 Abr 2026 · 19.363 pedidos</span>
+</div>
+
+</body>
+</html>
